@@ -1,0 +1,55 @@
+<div class="form-container">
+  <form [formGroup]="userForm" (ngSubmit)="submit()">
+
+    <!-- Titre -->
+    <div class="form-group">
+      <label>Titre :</label>
+      <input type="text" formControlName="titre" />
+      <div class="error" *ngIf="titre?.invalid && titre?.touched">
+        <span *ngIf="titre?.errors?.['required']">Le titre est obligatoire.</span>
+        <span *ngIf="titre?.errors?.['minlength']">Minimum 5 caractères requis.</span>
+        <span *ngIf="titre?.errors?.['pattern']">
+          Doit commencer par une majuscule et contenir uniquement des lettres.
+        </span>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="form-group">
+      <label>Description :</label>
+      <textarea formControlName="description" rows="4"></textarea>
+      <div class="error" *ngIf="description?.invalid && description?.touched">
+        <span *ngIf="description?.errors?.['required']">La description est obligatoire.</span>
+        <span *ngIf="description?.errors?.['minlength']">Minimum 30 caractères requis.</span>
+      </div>
+    </div>
+
+    <!-- Catégorie -->
+    <div class="form-group">
+      <label>Catégorie :</label>
+      <select formControlName="categorie">
+        <option value="">-- Sélectionnez une catégorie --</option>
+        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+      </select>
+      <div class="error" *ngIf="categorie?.invalid && categorie?.touched">
+        <span *ngIf="categorie?.errors?.['required']">La catégorie est obligatoire.</span>
+      </div>
+    </div>
+
+    <!-- Date (readonly) -->
+    <div class="form-group">
+      <label>Date :</label>
+      <input type="text" formControlName="date" readonly />
+    </div>
+
+    <!-- Status (readonly) -->
+    <div class="form-group">
+      <label>Status :</label>
+      <input type="text" formControlName="status" readonly />
+    </div>
+
+    <!-- Bouton Soumettre -->
+    <button type="submit" [disabled]="userForm.invalid">Soumettre</button>
+
+  </form>
+</div>
